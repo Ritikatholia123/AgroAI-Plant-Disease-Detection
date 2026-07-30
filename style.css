@@ -1,0 +1,83 @@
+/* ==========================================
+   BACKGROUND
+========================================== */
+
+.stApp {
+    background: linear-gradient(to bottom, #f3fff3, #ffffff);
+}
+
+/* ==========================================
+   TITLE
+========================================== */
+
+h1 {
+    color: #1b5e20;
+    text-align: center;
+    font-weight: bold;
+}
+
+h2, h3 {
+    color: #2e7d32;
+}
+
+/* ==========================================
+   BUTTON
+========================================== */
+
+.stButton > button {
+    width: 100%;
+    background-color: #2e7d32;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.stButton > button:hover {
+    background-color: #1b5e20;
+    color: white;
+}
+
+/* ==========================================
+   FILE UPLOADER
+========================================== */
+
+[data-testid="stFileUploader"] {
+    border: 2px dashed #2e7d32;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+/* ==========================================
+   METRIC
+========================================== */
+
+[data-testid="stMetric"] {
+    background-color: #f5fff5;
+    border: 1px solid #c8e6c9;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* ==========================================
+   TABS
+========================================== */
+
+button[role="tab"] {
+    font-weight: bold;
+}
+
+button[role="tab"][aria-selected="true"] {
+    color: #2e7d32;
+    border-bottom: 3px solid #2e7d32;
+}
+
+/* ==========================================
+   SUCCESS / INFO BOXES
+========================================== */
+
+.stAlert {
+    border-radius: 10px;
+}
