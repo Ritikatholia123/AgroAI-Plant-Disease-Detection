@@ -21,46 +21,85 @@ def show_report(info):
     # ==========================
     with tab1:
 
-        st.subheader("📖 Scientific Description")
-        st.info(info["Description"])
+        st.markdown(f"""
+        <div class="info-card">
+        <h4>📖 Scientific Description</h4>
+        <p>{info["Description"]}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-        st.subheader("🔍 Symptoms")
-        st.warning(info["Symptoms"])
+        st.markdown(f"""
+        <div class="info-card">
+        <h4>🔍 Symptoms</h4>
+        <p>{info["Symptoms"]}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
     # ==========================
     # TAB 2
     # ==========================
     with tab2:
 
-        st.subheader("💊 Treatment")
-        st.success(info["Treatment"])
+       st.markdown(f"""
+       <div class="info-card">
+       <h4>💊 Treatment</h4>
+       <p>{info["Treatment"]}</p>
+       </div>
+       """, unsafe_allow_html=True)
 
-        st.subheader("🛡 Prevention")
-        st.info(info["Prevention"])
+       st.markdown(f"""
+       <div class="info-card">
+       <h4>🛡 Prevention</h4>
+       <p>{info["Prevention"]}</p>
+       </div>
+       """, unsafe_allow_html=True)
 
-        st.subheader("🌾 Fertilizer")
-        st.success(info["Fertilizer"])
+       st.markdown(f"""
+       <div class="info-card">
+       <h4>🌾 Fertilizer</h4>
+       <p>{info["Fertilizer"]}</p>
+       </div>
+       """, unsafe_allow_html=True)
 
-        st.subheader("🧪 Pesticide")
-        st.success(info["Pesticide"])
+       st.markdown(f"""
+       <div class="info-card">
+       <h4>🧪 Pesticide</h4>
+       <p>{info["Pesticide"]}</p>
+       </div>
+       """, unsafe_allow_html=True)
 
     # ==========================
     # TAB 3
     # ==========================
     with tab3:
 
-        st.subheader("🌦 Weather")
-        st.info(info["Weather"])
+        st.markdown(f"""
+        <div class="info-card">
+        <h4>🌦 Weather</h4>
+        <p>{info["Weather"]}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-        st.subheader("💧 Water")
-        st.info(info["Water"])
+        st.markdown(f"""
+        <div class="info-card">
+        <h4>💧 Water</h4>
+        <p>{info["Water"]}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-        st.subheader("🌱 Soil")
-        st.success(info["Soil"])
+        st.markdown(f"""
+        <div class="info-card">
+        <h4>🌱 Soil</h4>
+        <p>{info["Soil"]}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-        st.subheader("☀ Sunlight")
-        st.success(info["Sunlight"])
-
+        st.markdown(f"""
+        <div class="info-card">
+        <h4>☀ Sunlight</h4>
+        <p>{info["Sunlight"]}</p>
+        </div>
+        """, unsafe_allow_html=True)
     # ==========================
     # TAB 4
     # ==========================
@@ -79,20 +118,40 @@ def show_report(info):
         else:
             st.success(severity)
 
-        st.subheader("⏳ Recovery Time")
-        st.info(info["Recovery_Time"])
+        st.markdown(f"""
+        <div class="info-card">
+        <h4>⏳ Recovery Time</h4>
+        <p>{info["Recovery_Time"]}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-        st.subheader("💰 Estimated Cost")
-        st.warning(info["Estimated_Cost"])
+        st.markdown(f"""
+        <div class="info-card">
+        <h4>💰 Estimated Cost</h4>
+        <p>{info["Estimated_Cost"]}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-        st.subheader("🥬 Nutrient Deficiency")
-        st.info(info["Nutrient_Deficiency"])
+        st.markdown(f"""
+        <div class="info-card">
+        <h4>🥬 Nutrient Deficiency</h4>
+        <p>{info["Nutrient_Deficiency"]}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-        st.subheader("🌿 Organic Control")
-        st.success(info["Organic_Control"])
+        st.markdown(f"""
+        <div class="info-card">
+        <h4>🌿 Organic Control</h4>
+        <p>{info["Organic_Control"]}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-        st.subheader("🏛 Government Advice")
-        st.info(info["Government_Advice"])
+        st.markdown(f"""
+        <div class="info-card">
+        <h4>🏛 Government Advice</h4>
+        <p>{info["Government_Advice"]}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
 
 # ==================================================

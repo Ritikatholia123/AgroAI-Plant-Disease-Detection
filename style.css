@@ -1,83 +1,905 @@
-/* ==========================================
-   BACKGROUND
-========================================== */
+/* ===========================
+        GOOGLE FONT
+=========================== */
 
-.stApp {
-    background: linear-gradient(to bottom, #f3fff3, #ffffff);
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* ===========================
+        RESET
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
 
-/* ==========================================
-   TITLE
-========================================== */
+/* ===========================
+        BODY
+=========================== */
 
-h1 {
-    color: #1b5e20;
-    text-align: center;
-    font-weight: bold;
+html,
+body,
+.stApp{
+
+    background:
+    linear-gradient(
+    rgba(7,18,12,.82),
+    rgba(7,18,12,.82)
+    ),
+    url("https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1800&q=80");
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+    background-attachment:fixed;
+
+    color:white;
+
 }
 
-h2, h3 {
-    color: #2e7d32;
+/* ===========================
+        GLOBAL TEXT
+=========================== */
+
+h1,h2,h3,h4,h5,h6{
+
+    color:white !important;
+
+    font-weight:700;
+
 }
 
-/* ==========================================
-   BUTTON
-========================================== */
+p,
+span,
+label,
+li{
 
-.stButton > button {
-    width: 100%;
-    background-color: #2e7d32;
-    color: white;
-    border-radius: 10px;
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    font-weight: bold;
+    color:#F2F2F2 !important;
+
+    line-height:1.8;
+
 }
 
-.stButton > button:hover {
-    background-color: #1b5e20;
-    color: white;
+/* ===========================
+        MAIN CONTAINER
+=========================== */
+
+.block-container{
+
+    padding-top:2rem;
+
+    padding-bottom:2rem;
+
+    max-width:1400px;
+
 }
 
-/* ==========================================
-   FILE UPLOADER
-========================================== */
+/* ===========================
+        HERO
+=========================== */
 
-[data-testid="stFileUploader"] {
-    border: 2px dashed #2e7d32;
-    border-radius: 10px;
-    padding: 15px;
+.hero{
+
+    background:rgba(24,33,40,.92);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:30px;
+
+    padding:60px;
+
+    text-align:center;
+
+    border:1px solid rgba(255,255,255,.10);
+
+    box-shadow:0 18px 40px rgba(0,0,0,.40);
+
+    margin-bottom:35px;
+
 }
 
-/* ==========================================
-   METRIC
-========================================== */
+.hero h1{
 
-[data-testid="stMetric"] {
-    background-color: #f5fff5;
-    border: 1px solid #c8e6c9;
-    border-radius: 10px;
-    padding: 10px;
+    color:#2EE66B !important;
+
+    font-size:65px;
+
+    font-weight:800;
+
+    margin-bottom:10px;
+
 }
 
-/* ==========================================
-   TABS
-========================================== */
+.hero h3{
 
-button[role="tab"] {
-    font-weight: bold;
+    color:white !important;
+
+    font-size:34px;
+
+    margin-bottom:20px;
+
 }
 
-button[role="tab"][aria-selected="true"] {
-    color: #2e7d32;
-    border-bottom: 3px solid #2e7d32;
+.hero p{
+
+    color:#F1F1F1 !important;
+
+    font-size:20px;
+
 }
 
-/* ==========================================
-   SUCCESS / INFO BOXES
-========================================== */
+/* ===========================
+        DIVIDER
+=========================== */
 
-.stAlert {
-    border-radius: 10px;
+hr{
+
+    border:1px solid rgba(255,255,255,.18);
+
+}
+
+/* ===========================
+        SIDEBAR
+=========================== */
+
+[data-testid="stSidebar"]{
+
+    background:#F5FFF5;
+
+    border-right:3px solid #22C55E;
+
+}
+
+[data-testid="stSidebar"] *{
+
+    color:#1E293B !important;
+
+}
+
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3{
+
+    color:#15803D !important;
+
+    font-weight:700;
+
+}
+
+
+/* ===========================
+        FILE UPLOADER
+=========================== */
+
+[data-testid="stFileUploader"]{
+
+    background:#FFFFFF !important;
+
+    border:3px dashed #22C55E;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+}
+
+/* Upload Box Text */
+
+[data-testid="stFileUploader"] *{
+
+    color:#1F2937 !important;
+
+    font-weight:600;
+
+}
+
+/* Drag Drop Area */
+
+[data-testid="stFileUploaderDropzone"]{
+
+    background:#FFFFFF !important;
+
+    border:none !important;
+
+}
+
+/* ===========================
+        BUTTONS
+=========================== */
+
+.stButton>button{
+
+    width:100%;
+
+    height:55px;
+
+    background:#22C55E;
+
+    color:white !important;
+
+    border:none;
+
+    border-radius:15px;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    transition:.3s;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.30);
+
+}
+
+.stButton>button:hover{
+
+    background:#16A34A;
+
+    transform:translateY(-3px);
+
+}
+
+/* ===========================
+      DOWNLOAD BUTTON
+=========================== */
+
+.stDownloadButton>button{
+
+    width:100%;
+
+    height:58px;
+
+    background:#059669;
+
+    color:white !important;
+
+    border:none;
+
+    border-radius:15px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+.stDownloadButton>button:hover{
+
+    background:#047857;
+
+}
+
+/* ===========================
+      PROGRESS BAR
+=========================== */
+
+.stProgress>div>div{
+
+    background:#22C55E !important;
+
+    height:18px;
+
+    border-radius:30px;
+
+}
+
+/* ===========================
+      ALERT BOXES
+=========================== */
+
+.stSuccess{
+
+    background:#14532D !important;
+
+    color:white !important;
+
+}
+
+.stInfo{
+
+    background:#1D4ED8 !important;
+
+    color:white !important;
+
+}
+
+.stWarning{
+
+    background:#B45309 !important;
+
+    color:white !important;
+
+}
+
+.stError{
+
+    background:#991B1B !important;
+
+    color:white !important;
+
+}
+
+/* ===========================
+        DISEASE CARD
+=========================== */
+
+.disease-card{
+
+    background:#263238;
+
+    border-left:6px solid #22C55E;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    margin-bottom:20px;
+
+    color:white;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+
+    transition:.3s;
+
+}
+
+.disease-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 18px 35px rgba(34,197,94,.35);
+
+}
+
+.disease-card h2{
+
+    color:#2EE66B !important;
+
+    font-size:34px;
+
+    margin-bottom:10px;
+
+}
+
+.disease-card h4{
+
+    color:white !important;
+
+    font-size:22px;
+
+}
+
+
+/* ===========================
+        INFO CARD
+=========================== */
+
+.info-card{
+
+    background:#263238;
+
+    border-radius:18px;
+
+    border-left:5px solid #22C55E;
+
+    padding:22px;
+
+    margin-bottom:20px;
+
+    color:white;
+
+    box-shadow:0 8px 22px rgba(0,0,0,.30);
+
+    transition:.3s;
+
+}
+
+.info-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 15px 30px rgba(34,197,94,.25);
+
+}
+
+.info-card h4{
+
+    color:#2EE66B !important;
+
+    margin-bottom:10px;
+
+}
+
+.info-card p{
+
+    color:white !important;
+
+}
+
+
+/* ===========================
+        METRIC CARDS
+=========================== */
+
+[data-testid="metric-container"]{
+
+    background:#263238;
+
+    border-left:6px solid #22C55E;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.30);
+
+}
+
+[data-testid="metric-container"] *{
+
+    color:white !important;
+
+}
+
+
+/* ===========================
+        PLOTLY CHART
+=========================== */
+
+.js-plotly-plot{
+
+    background:#263238 !important;
+
+    border-radius:20px;
+
+    padding:15px;
+
+    box-shadow:0 12px 28px rgba(0,0,0,.30);
+
+}
+
+
+/* ===========================
+      DATAFRAME
+=========================== */
+
+[data-testid="stDataFrame"]{
+
+    background:#263238;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+}
+
+
+/* ===========================
+      IMAGE
+=========================== */
+
+img{
+
+    border-radius:18px;
+
+    transition:.3s;
+
+}
+
+img:hover{
+
+    transform:scale(1.02);
+
+}
+
+/* ===========================
+        TABS
+=========================== */
+
+.stTabs [role="tablist"]{
+    gap:10px;
+}
+
+.stTabs [role="tab"]{
+
+    background:#263238;
+
+    color:white !important;
+
+    border-radius:12px;
+
+    padding:10px 18px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.stTabs [role="tab"]:hover{
+
+    background:#16A34A;
+
+}
+
+.stTabs [aria-selected="true"]{
+
+    background:#22C55E !important;
+
+    color:white !important;
+
+}
+
+/* ===========================
+      FOOTER
+=========================== */
+
+.footer{
+
+    background:#263238;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    margin-top:40px;
+
+    text-align:center;
+
+    box-shadow:0 12px 28px rgba(0,0,0,.30);
+
+}
+
+.footer h4{
+
+    color:#2EE66B !important;
+
+}
+
+.footer p{
+
+    color:white !important;
+
+}
+
+/* ===========================
+      SCROLLBAR
+=========================== */
+
+::-webkit-scrollbar{
+
+    width:12px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#1f2937;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#22C55E;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#16A34A;
+
+}
+
+/* ===========================
+      LINKS
+=========================== */
+
+a{
+
+    color:#2EE66B !important;
+
+    text-decoration:none;
+
+}
+
+a:hover{
+
+    color:#4ADE80 !important;
+
+}
+
+/* ===========================
+      INPUT BOX
+=========================== */
+
+input{
+
+    border-radius:12px !important;
+
+}
+
+/* ===========================
+      ANIMATION
+=========================== */
+
+.hero{
+
+    animation:fadeIn 1s ease;
+
+}
+
+@keyframes fadeIn{
+
+0%{
+
+opacity:0;
+
+transform:translateY(40px);
+
+}
+
+100%{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+/* ===========================
+      RESPONSIVE
+=========================== */
+
+@media(max-width:900px){
+
+.hero{
+
+padding:30px;
+
+}
+
+.hero h1{
+
+font-size:42px;
+
+}
+
+.hero h3{
+
+font-size:24px;
+
+}
+
+.hero p{
+
+font-size:17px;
+
+}
+
+.disease-card{
+
+padding:18px;
+
+}
+
+.info-card{
+
+padding:18px;
+
+}
+
+}
+
+/* ===========================
+      REMOVE STREAMLIT MENU
+=========================== */
+
+#MainMenu{
+
+visibility:hidden;
+
+}
+
+footer{
+
+visibility:hidden;
+
+}
+
+header{
+
+visibility:hidden;
+
+}
+.metric-card{
+
+    background:#1E293B;
+
+    border-left:6px solid #22C55E;
+
+    border-radius:18px;
+
+    padding:22px;
+
+    text-align:center;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+
+    transition:.3s;
+
+}
+
+.metric-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.metric-card h3{
+
+    color:#A7F3D0 !important;
+
+    font-size:18px;
+
+    margin-bottom:12px;
+
+}
+
+.metric-card h2{
+
+    color:#FFFFFF !important;
+
+    font-size:28px;
+
+    font-weight:800;
+
+}
+.welcome-box{
+
+    background:linear-gradient(90deg,#16A34A,#22C55E);
+
+    color:white;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    text-align:center;
+
+    padding:18px;
+
+    border-radius:15px;
+
+    margin:20px 0;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+
+    animation:welcomeAnim 1s ease;
+
+}
+
+@keyframes welcomeAnim{
+
+0%{
+    opacity:0;
+    transform:translateY(-20px);
+}
+
+100%{
+    opacity:1;
+    transform:translateY(0);
+}
+}
+/* ==========================================================
+        MOBILE RESPONSIVE UI
+========================================================== */
+
+@media screen and (max-width: 768px){
+
+    /* Hero */
+    .hero{
+        height:auto;
+        padding:25px 15px;
+        border-radius:18px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .hero h3{
+        font-size:20px;
+    }
+
+    .hero p{
+        font-size:15px;
+        line-height:1.6;
+    }
+
+    /* Welcome Banner */
+    .welcome-banner{
+        padding:15px;
+    }
+
+    .welcome-banner span{
+        font-size:22px;
+    }
+
+    .welcome-banner p{
+        font-size:14px;
+    }
+
+    /* Disease Card */
+    .disease-card{
+        padding:18px;
+    }
+
+    .disease-card h2{
+        font-size:24px;
+    }
+
+    .disease-card h4{
+        font-size:16px;
+    }
+
+    /* Info Card */
+    .info-card{
+        padding:16px;
+    }
+
+    .info-card h4{
+        font-size:18px;
+    }
+
+    .info-card p{
+        font-size:14px;
+    }
+
+    /* Metric Card */
+    .metric-card{
+        margin-bottom:15px;
+        padding:18px;
+    }
+
+    .metric-card h2{
+        font-size:22px;
+    }
+
+    .metric-card h3{
+        font-size:16px;
+    }
+
+    /* Sidebar */
+    section[data-testid="stSidebar"]{
+        width:100% !important;
+    }
+
+    /* Buttons */
+    .stButton>button{
+        width:100%;
+        font-size:16px;
+        padding:12px;
+    }
+
+    /* Upload Box */
+    [data-testid="stFileUploader"]{
+        padding:15px;
+    }
+
+    /* Footer */
+    .footer{
+        padding:18px;
+    }
+
 }
