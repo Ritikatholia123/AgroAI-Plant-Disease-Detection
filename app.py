@@ -38,6 +38,7 @@ except:
 # =====================================================
 # LOAD MODEL
 # =====================================================
+st.cache_resource
 
 MODEL_PATH = "model/plant_disease_model.keras"
 
