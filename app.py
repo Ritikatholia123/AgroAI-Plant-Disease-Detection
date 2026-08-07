@@ -9,6 +9,7 @@ from tensorflow.keras.models import load_model
 from disease_data import disease_info, class_names
 from utils import predict_disease
 from report import show_report, generate_pdf
+import os
 
 
 # =====================================================
@@ -385,15 +386,16 @@ if uploaded_file is not None:
 # =====================================================
 # PDF REPORT
 # =====================================================
-
-    st.header("📄 Download AgroAI Report")
-
     pdf = generate_pdf(
     disease,
     confidence,
     info
     )
 
+    st.write("PDF Path:", pdf)
+    st.write("File Exists:", os.path.exists(pdf))
+    st.header("📄 Download AgroAI Report")
+    
     with open(pdf, "rb") as file:
 
         st.download_button(
