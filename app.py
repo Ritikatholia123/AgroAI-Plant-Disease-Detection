@@ -38,18 +38,18 @@ except:
 # =====================================================
 # LOAD MODEL
 # =====================================================
-st.cache_resource
-
 MODEL_PATH = "model/plant_disease_model.keras"
 
+@st.cache_resource
+def get_model():
+    return load_model(MODEL_PATH)
+
 try:
-    model = load_model(MODEL_PATH)
+    model = get_model()
 
 except Exception as e:
-
     st.error(f"❌ Model Loading Error\n\n{e}")
     st.stop()
-
 # =====================================================
 # SIDEBAR
 # =====================================================
