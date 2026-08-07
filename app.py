@@ -169,9 +169,6 @@ if uploaded_file is not None:
 
        col1, col2 = st.columns([1,2])
 
-       with col1:
-         st.image(image, use_container_width=True)
-
        with col2:
         st.markdown(f"""
         <div class="disease-card">
@@ -194,19 +191,6 @@ if uploaded_file is not None:
     # =============================
     # RIGHT SIDE
     # =============================
-    with col2:
-
-        st.success("✅ Prediction Completed Successfully")
-
-        st.markdown(f"""
-        <div class="disease-card">
-
-        <h2>🌿 {disease.replace("_"," ")}</h2>
-
-        <h4>Confidence : {confidence:.2f}%</h4>
-
-        </div>
-        """, unsafe_allow_html=True)
 
         fig = go.Figure(go.Indicator(
            mode="gauge+number",
@@ -218,7 +202,7 @@ if uploaded_file is not None:
             },
             gauge={
                "axis": {"range": [0, 100], "tickcolor": "white"},
-               "bar": {"color": "#22C55E"},
+               "bar": {"color": "#38BDF8"},
                "bgcolor": "rgba(0,0,0,0)",
                "borderwidth": 2,
                "bordercolor": "#22C55E",
