@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 
 from PIL import Image
 from tensorflow.keras.models import load_model
@@ -8,15 +9,14 @@ from tensorflow.keras.models import load_model
 from disease_data import disease_info, class_names
 from utils import predict_disease
 from report import show_report, generate_pdf
-import plotly.graph_objects as go
-from streamlit_js_eval import streamlit_js_eval
+
 
 # =====================================================
 # PAGE CONFIG
 # =====================================================
 
 st.set_page_config(
-    page_title="AgroAI Pro",
+    page_title=" AgroAI Pro",
     page_icon="🌿",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -32,17 +32,20 @@ try:
             f"<style>{css.read()}</style>",
             unsafe_allow_html=True
         )
-except:
-    pass
+except FileNotFoundError:
+    st.warning("style.css not found.")
 
 # =====================================================
 # LOAD MODEL
 # =====================================================
+
 MODEL_PATH = "model/plant_disease_model.keras"
+
 
 @st.cache_resource
 def get_model():
     return load_model(MODEL_PATH)
+
 
 try:
     model = get_model()
@@ -50,6 +53,7 @@ try:
 except Exception as e:
     st.error(f"❌ Model Loading Error\n\n{e}")
     st.stop()
+
 # =====================================================
 # SIDEBAR
 # =====================================================
@@ -64,17 +68,17 @@ st.sidebar.title("🌿 AgroAI Pro")
 st.sidebar.markdown("""
 ### Smart Plant Disease Detection
 
-✔ AI Powered
+✅ AI Powered
 
-✔ CNN Model
+✅ CNN Model
 
-✔ PDF Report
+✅ PDF Report
 
-✔ Farming Guide
+✅ Farming Guide
 
-✔ Organic Control
+✅ Organic Control
 
-✔ Deep Learning
+✅ Deep Learning
 """)
 
 st.sidebar.markdown("---")
@@ -90,31 +94,19 @@ st.markdown("""
 
 <h1>🌿 AgroAI Pro</h1>
 
-<h2>AI Powered Plant Disease Detection</h2>
+<h3>AI Powered Plant Disease Detection</h3>
 
 <p>
-Upload a plant leaf image and detect diseases instantly
-using Deep Learning.
+Upload a plant leaf image and instantly detect disease using Deep Learning.
 </p>
 
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-<div class="welcome-box">
-    🌿 <b>Welcome to AgroAI Pro!</b><br>
-    AI Powered Plant Disease Detection System is Ready.
-</div>
-""", unsafe_allow_html=True)
-
 st.divider()
 
-screen_width = streamlit_js_eval(
-    js_expressions="window.innerWidth",
-    key="WIDTH"
-)
+st.success("🌿 Welcome to AgroAI Pro", icon="🌱")
 
-is_mobile = screen_width is not None and screen_width < 768
 # =====================================================
 # IMAGE UPLOADER
 # =====================================================
@@ -122,7 +114,7 @@ is_mobile = screen_width is not None and screen_width < 768
 st.subheader("📤 Upload Plant Leaf Image")
 
 uploaded_file = st.file_uploader(
-    "",
+    "Choose a plant leaf image",
     type=["jpg", "jpeg", "png"]
 )
 # =====================================================
@@ -131,56 +123,29 @@ uploaded_file = st.file_uploader(
 
 if uploaded_file is not None:
 
-    # -----------------------------
     # Load Image
-    # -----------------------------
     image = Image.open(uploaded_file).convert("RGB")
 
-    # -----------------------------
-    # AI Prediction
-    # -----------------------------
+    # Prediction
     with st.spinner("🔍 AI is analyzing the leaf..."):
-
         disease, confidence, prediction = predict_disease(
             model,
             image,
             class_names
         )
 
-    # -----------------------------
-    # Disease Information
-    # -----------------------------
     info = disease_info[disease]
 
-    # -----------------------------
-    # Layout
-    # -----------------------------
-    if is_mobile:
-
-       st.image(image, use_container_width=True)
-
-       st.markdown(f"""
-        <div class="disease-card">
-        <h2>🌿 {disease.replace("_"," ")}</h2>
-        <h4>Confidence : {confidence:.2f}%</h4>
-        </div>
-        """, unsafe_allow_html=True)
-
-    else:
-
-       col1, col2 = st.columns([1,2])
-
-       with col2:
-        st.markdown(f"""
-        <div class="disease-card">
-            <h2>🌿 {disease.replace("_"," ")}</h2>
-            <h4>Confidence : {confidence:.2f}%</h4>
-        </div>
-        """, unsafe_allow_html=True)
-
     # =============================
-    # LEFT SIDE
+    # LAYOUT
     # =============================
+
+    col1, col2 = st.columns([1, 2], gap="large")
+
+    # -----------------------------
+    # LEFT : IMAGE
+    # -----------------------------
+
     with col1:
 
         st.image(
@@ -189,51 +154,121 @@ if uploaded_file is not None:
             use_container_width=True
         )
 
-    # =============================
-    # RIGHT SIDE
-    # =============================
+    # -----------------------------
+    # RIGHT : RESULT
+    # -----------------------------
 
-        fig = go.Figure(go.Indicator(
-           mode="gauge+number",
-           value=confidence,
-           number={"suffix": "%", "font": {"size": 42, "color": "white"}},
-           title={
-              "text": "🌿 Confidence Score",
-              "font": {"size": 22, "color": "white"}
-            },
-            gauge={
-               "axis": {"range": [0, 100], "tickcolor": "white"},
-               "bar": {"color": "#38BDF8"},
-               "bgcolor": "rgba(0,0,0,0)",
-               "borderwidth": 2,
-               "bordercolor": "#22C55E",
-               "steps": [
-                    {"range": [0, 40], "color": "#EF4444"},
-                    {"range": [40, 70], "color": "#FACC15"},
-                    {"range": [70, 100], "color": "#22C55E"}
-        ]
-    }
-))
+    with col2:
 
-    fig.update_layout(
-       height=320,
-       margin=dict(l=20, r=20, t=40, b=20),
-       paper_bgcolor="rgba(0,0,0,0)",
-       font={"color": "white"}
-    )
+        st.success("✅ Prediction Completed Successfully")
 
-    st.plotly_chart(fig, use_container_width=True)
+        st.markdown(f"""
+        <div class="disease-card">
+            <h2>🌿 {disease.replace("_"," ")}</h2>
+            <h4>Confidence : {confidence:.2f}%</h4>
+        </div>
+        """, unsafe_allow_html=True)
 
-    if confidence >= 90:
-       st.success("🟢 Excellent Prediction Confidence")
+        fig = go.Figure(
+            go.Indicator(
 
-    elif confidence >= 75:
-       st.warning("🟡 Good Prediction Confidence")
+                mode="gauge+number",
 
-    else:
-        st.error("🔴 Low Prediction Confidence")
+                value=confidence,
+
+                number={
+                    "suffix": "%",
+                    "font": {
+                        "size": 42,
+                        "color": "white"
+                    }
+                },
+
+                title={
+                    "text": "Confidence Score",
+                    "font": {
+                        "size": 22,
+                        "color": "white"
+                    }
+                },
+
+                gauge={
+
+                    "axis": {
+                        "range": [0, 100],
+                        "tickcolor": "white"
+                    },
+
+                    "bar": {
+                        "color": "#38BDF8"
+                    },
+
+                    "bgcolor": "rgba(0,0,0,0)",
+
+                    "borderwidth": 2,
+
+                    "bordercolor": "#22C55E",
+
+                    "steps": [
+
+                        {
+                            "range": [0, 40],
+                            "color": "#EF4444"
+                        },
+
+                        {
+                            "range": [40, 70],
+                            "color": "#FACC15"
+                        },
+
+                        {
+                            "range": [70, 100],
+                            "color": "#22C55E"
+                        }
+
+                    ]
+
+                }
+
+            )
+        )
+
+        fig.update_layout(
+
+            height=320,
+
+            margin=dict(
+                l=20,
+                r=20,
+                t=30,
+                b=20
+            ),
+
+            paper_bgcolor="rgba(0,0,0,0)",
+
+            font=dict(color="white")
+
+        )
+
+        st.plotly_chart(
+            fig,
+            use_container_width=True
+        )
+
+        if confidence >= 90:
+            st.success("🟢 Excellent Prediction Confidence")
+            gauge_color = "#22C55E"  
+
+        elif confidence >= 75:
+            st.warning("🟡 Good Prediction Confidence")
+            gauge_color = "#FACC15"
+
+        else:
+            st.error("🔴 Low Prediction Confidence")
+            gauge_color = "#EF4444"
 
     st.divider()
+
 # =====================================================
 # PREDICTION PROBABILITY
 # =====================================================
@@ -251,7 +286,7 @@ if uploaded_file is not None:
     y="Disease",
     orientation="h",
     color="Confidence (%)",
-    color_continuous_scale="Greens",
+    color_continuous_scale="Viridis",
     text="Confidence (%)"
     )
 
@@ -262,38 +297,36 @@ if uploaded_file is not None:
 
     fig.update_layout(
 
-    template="plotly_dark",
+        template="plotly_dark",
 
-    paper_bgcolor="#FFFFFF",
-    plot_bgcolor="#FFFFFF",
-    coloraxis_showscale=False,
+        paper_bgcolor="#0F172A",
+        plot_bgcolor="#1E293B",
 
-    font=dict(
-        color="#1F2937",
-        size=18
-    ),
+        coloraxis_showscale=False,
 
-    margin=dict(
-        l=20,
-        r=20,
-        t=30,
-        b=20
-    ),
+        font=dict(
+         color="white",
+         size=16
+        ),
 
-    height=650
+        xaxis=dict(
+          title="Confidence (%)",
+          title_font=dict(color="white", size=18),
+          tickfont=dict(color="white")
+        ),
+
+        yaxis=dict(
+          title="Disease",
+          title_font=dict(color="white", size=18),
+          tickfont=dict(color="white")
+        ),
+
+        margin=dict(l=20, r=20, t=20, b=20),
+
+        height=650
     )
 
-    st.plotly_chart(
-    fig,
-    use_container_width=True
-    )
-    title={
-      "text": "🌿 Confidence Score",
-      "font": {
-        "size": 24,
-        "color": "#166534"
-     }
-    }
+    st.plotly_chart(fig, use_container_width=True)
 
     st.divider()
 
@@ -316,45 +349,44 @@ if uploaded_file is not None:
     c1, c2, c3 = st.columns(3)
 
     with c1:
-        st.markdown(f"""
-        <div class="metric-card">
-        <h3>⚠ Severity</h3>
-        <h2>{info["Severity"]}</h2>
-        </div>
-        """, unsafe_allow_html=True)
+          st.markdown(f"""
+          <div class="metric-card">
+          <h3>⚠ Severity</h3>
+          <h2>{info["Severity"]}</h2>
+          </div>
+          """, unsafe_allow_html=True)
 
     with c2:
         st.markdown(f"""
         <div class="metric-card">
         <h3>⏳ Recovery Time</h3>
-        <h2>{info["Recovery_Time"]}</h2>
+        <h2>{info["Recovery_Time"].replace(" ", "<br>")}</h2>
         </div>
         """, unsafe_allow_html=True)
 
     with c3:
-        st.markdown(f"""
+      st.markdown(f"""
         <div class="metric-card">
         <h3>💰 Estimated Cost</h3>
         <h2>{info["Estimated_Cost"]}</h2>
         </div>
         """, unsafe_allow_html=True)
-    st.success(f"🌱 Fertilizer : {info['Fertilizer']}")
 
-    st.info(f"🦠 Pesticide : {info['Pesticide']}")
+      st.success(f"🌱 **Fertilizer:** {info['Fertilizer']}")
 
-    st.warning(f"🥬 Nutrient Deficiency : {info['Nutrient_Deficiency']}"
-    )
+      st.info(f"🦠 **Pesticide:** {info['Pesticide']}")
 
-    st.success(
-    f"🏛 Government Advice : {info['Government_Advice']}"
-    )
+      st.warning(f"🥬 **Nutrient Deficiency:** {info['Nutrient_Deficiency']}")
 
-    st.divider()
+      st.success(f"🏛 **Government Advice:** {info['Government_Advice']}")
+
+      st.divider()
+
 # =====================================================
 # PDF REPORT
 # =====================================================
 
-    st.header("📄 Download Report")
+    st.header("📄 Download AgroAI Report")
 
     pdf = generate_pdf(
     disease,
@@ -365,14 +397,14 @@ if uploaded_file is not None:
     with open(pdf, "rb") as file:
 
         st.download_button(
-        label="📥 Download AgroAI Report",
+        label="📥 Download PDF Report",
         data=file,
         file_name="AgroAI_Report.pdf",
         mime="application/pdf",
         use_container_width=True
         )
 
-    st.balloons()
+    st.divider()
 
 # =====================================================
 # AI RECOMMENDATION
@@ -381,54 +413,74 @@ if uploaded_file is not None:
     st.header("🤖 AI Recommendation")
 
     recommendation = f"""
-    ✅ Disease Detected : {disease.replace("_"," ")}
+    ### 🌿 Disease Detected
+    **{disease.replace("_"," ")}**
 
-    🌱 Apply : {info["Pesticide"]}
+     ---
 
-    🌾 Fertilizer : {info["Fertilizer"]}
+    ### 🌱 Recommended Fertilizer
+    {info["Fertilizer"]}
 
-    💧 Water : {info["Water"]}
+    ---
 
-    🌤 Weather : {info["Weather"]}
+    ### 🦠 Recommended Pesticide
+    {info["Pesticide"]}
 
-    🛡 Prevention : {info["Prevention"]}
+    ---
+
+    ### 💧 Water Requirement
+    {info["Water"]}
+
+    ---
+
+    ### ☀ Weather Condition
+    {info["Weather"]}
+
+    ---
+
+    ### 🛡 Prevention Tips
+    {info["Prevention"]}
+
+    ---
+
+    ### 🏛 Government Advice
+    {info["Government_Advice"]}
     """
 
-    st.info(recommendation)
+    st.markdown(recommendation)
+
+    st.success("✅ Recommendation Generated Successfully")
 
     st.divider()
+
 # =====================================================
 # FOOTER
 # =====================================================
 
-st.markdown("---")
+    st.markdown("""
+    <hr style="margin-top:40px;margin-bottom:20px;">
 
-st.markdown("""
-<div style="text-align:center;padding:30px;">
+    <div style="text-align:center;">
 
-<h2 style="color:#30d158;">
-🌿 AgroAI Pro
-</h2>
+    <h3 style="color:#22C55E;">
+    🌿 AgroAI Pro
+    </h3>
 
-<p style="font-size:18px;color:white;">
+    <p style="font-size:18px;color:#CFCFCF;">
+    AI Powered Plant Disease Detection System
+    </p>
 
-AI Powered Plant Disease Detection System
+    <p style="color:#9CA3AF;">
+    Made with ❤️ using
+    <br>
+    TensorFlow • Streamlit • Plotly • Python
+    </p>
 
-</p>
+    <p style="font-size:15px;color:#9CA3AF;">
+    © 2026 Ritika Tholia
+    </p>
 
-<p style="color:#bdbdbd;">
+    </div>
+    """, unsafe_allow_html=True)
 
-Made with ❤️ using
-
-TensorFlow • Streamlit • Plotly • Python
-
-</p>
-
-<p style="color:#8fd694;">
-
-© 2026 Ritika Tholia
-
-</p>
-
-</div>
-""", unsafe_allow_html=True)
+    st.success("🌱 Thank you for using AgroAI Pro!", icon="🌿")
